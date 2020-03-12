@@ -21,6 +21,9 @@
     //echo count($result);
     //2
 
+    $today_goal_cnt = array();
+    $cnt = 0;
+
     for($i = 0; $i < count($result); $i++) {
         $userId = $result[$i][0];
         
@@ -34,8 +37,25 @@
         //var_dump($row);
 
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            var_dump($row);
+            
+            $today_goal_cnt[$cnt] = $row[0];
+            $cnt++;
+
+            // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
+            // $stmt->bindParam(':userId', $userId);
+            // $stmt->bindParam(':goal_cnt', $goal_cnt);
+            // $stmt->execute();
+
+            //var_dump($row);
+            //echo $row[0];
         }
+
+        $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt WHERE userId = :userId');
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
+        $stmt->execute();
+
+        
 
         // var_dump($result_goal_cnt);
 
@@ -60,6 +80,7 @@
         // $stmt->bindParam(':goal_cnt', $goal_cnt);
         // $stmt->execute();
     }
+    var_dump($today_goal_cnt);
 
     // array(2) { 
         // [0]=> array(1) { 
