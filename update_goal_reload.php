@@ -14,137 +14,29 @@
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
-    //var_dump($result);
-    //$result[0][0]
-    //$result[1][0]
-
-    //echo count($result);
-    //2
 
     $today_goal_cnt = array();
     $cnt = 0;
 
     for($i = 0; $i < count($result); $i++) {
+        
         $userId = $result[$i][0];
         
         // 각각의 userId에 대응하는 goal_cnt 받아오기
         $query = "SELECT goal_cnt FROM goal WHERE userid = ?";
         $stmt = $con->prepare($query);
         $stmt->execute(array($userId));
-        //$result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
-        //$row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
-
-        //var_dump($row);
-
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            
             $today_goal_cnt[$cnt] = $row[0];
             $cnt++;
-
-            // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
-            // $stmt->bindParam(':userId', $userId);
-            // $stmt->bindParam(':goal_cnt', $goal_cnt);
-            // $stmt->execute();
-
-            //var_dump($row);
-            //echo $row[0];
         }
 
+        // pre_goal_cnt 업데이트
         $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt WHERE userId = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
         $stmt->execute();
-
-        
-
-        // var_dump($result_goal_cnt);
-
-        // if($i == 19) {
-        //     var_dump($result_goal_cnt[19]);
-        // }
-        
-        // array(1) { 
-        //     [0]=> array(1) { 
-        //         [0]=> string(1) "3" 
-        //     } 
-        // } 
-        // array(1) { 
-        //     [0]=> array(1) { 
-        //         [0]=> string(1) "0" 
-        //     } 
-        // }
-
-
-        // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
-        // $stmt->bindParam(':userId', $userId);
-        // $stmt->bindParam(':goal_cnt', $goal_cnt);
-        // $stmt->execute();
     }
-    var_dump($today_goal_cnt);
-
-    // array(2) { 
-        // [0]=> array(1) { 
-        //     [0]=> string(10) "testuser01" 
-        // } 
-        // [1]=> array(1) { 
-        //     [0]=> string(10) "testuser02" } 
-        // }
-
-
-    // if( (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) || $android )
-    // {
-
-    //     // 안드로이드 코드의 postParameters 변수에 적어준 이름을 가지고 값을 전달 받습니다.
-    //     $userId=$_POST['userId'];
-    //     $userPw=$_POST['userPw'];
-        
-    //     try{
-
-    //         // SQL문을 실행하여 person 테이블에서 조회합니다.
-    //         $query = "SELECT userId FROM person WHERE userId = ?";
-    //         $stmt = $con->prepare($query);
-    //         $stmt->execute(array($userId));
-    //         $result = $stmt->fetchAll(PDO::FETCH_NUM);
-
-    //         $response = array();
-
-    //         if(!isset($result[0][0])) {
-    //             // SQL문을 실행하여 데이터를 MySQL 서버의 person 테이블에 저장합니다. 
-    //             $stmt = $con->prepare('INSERT INTO person(userId, userPw) VALUES(:userId, :userPw)');
-    //             $stmt->bindParam(':userId', $userId);
-    //             $stmt->bindParam(':userPw', $userPw);
-
-    //             if($stmt->execute())
-    //             {
-    //                 $response["success"] = true;
-    //             }
-    //             else
-    //             {
-    //                 $response["success"] = false;
-    //             }
-
-    //             //echo json_encode($response);
-                
-    //             $pre_goal_cnt = 0;
-    //             $goal_cnt = 0;
-
-    //             $stmt = $con->prepare('INSERT INTO goal(userId, pre_goal_cnt, goal_cnt) VALUES(:userId, :pre_goal_cnt, :goal_cnt)');
-    //             $stmt->bindParam(':userId', $userId);
-    //             $stmt->bindParam(':pre_goal_cnt', $pre_goal_cnt);
-    //             $stmt->bindParam(':goal_cnt', $goal_cnt);
-    //             $stmt->execute();
-
-    //         } else {
-    //             $response["success"] = false;
-    //             //$resultMSG = "DUPE";
-    //         }
-
-    //         echo json_encode($response);
-
-    //     } catch(PDOException $e) {
-    //         die("Database error: " . $e->getMessage()); 
-    //     }
-
-    // }
+    
 
 ?>
