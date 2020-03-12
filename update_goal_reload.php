@@ -10,10 +10,20 @@
 
     $query = "SELECT userId FROM person";
     $stmt = $con->prepare($query);
-    $stmt->execute(array($userId));
     $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
     var_dump($result);
+    //$result[0][0]
+    //$result[1][0]
+
+    echo count($result);
+    // array(2) { 
+        // [0]=> array(1) { 
+        //     [0]=> string(10) "testuser01" 
+        // } 
+        // [1]=> array(1) { 
+        //     [0]=> string(10) "testuser02" } 
+        // }
 
 
     // if( (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) || $android )
