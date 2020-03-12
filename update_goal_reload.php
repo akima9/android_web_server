@@ -27,14 +27,14 @@
         $stmt = $con->prepare($query);
         $stmt->execute(array($userId));
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            $today_goal_cnt[$cnt] = $row[0];
+            $today_goal_cnt[$cnt] = $row[0] - 1;
             $cnt++;
         }
 
         // pre_goal_cnt 업데이트
         $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt WHERE userId = :userId');
         $stmt->bindParam(':userId', $userId);
-        $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i] - 1);
+        $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
         $stmt->execute();
     }
     
