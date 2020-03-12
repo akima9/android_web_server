@@ -34,7 +34,7 @@
         // pre_goal_cnt 업데이트
         $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt WHERE userId = :userId');
         $stmt->bindParam(':userId', $userId);
-        $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
+        $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i] - 1);
         $stmt->execute();
     }
     
