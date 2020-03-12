@@ -25,15 +25,25 @@
         $userId = $result[$i][0];
         
         // 각각의 userId에 대응하는 goal_cnt 받아오기
-        $query = "SELECT goal_cnt FROM goal WHERE userid = :userId";
+        $query = "SELECT goal_cnt FROM goal WHERE userid = ?";
         $stmt = $con->prepare($query);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->execute();
+        //$stmt->bindParam(':userId', $userId);
+        $stmt->execute(array($userId));
         $result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
 
         var_dump($result_goal_cnt);
+        // array(1) { 
+        //     [0]=> array(1) { 
+        //         [0]=> string(1) "3" 
+        //     } 
+        // } 
+        // array(1) { 
+        //     [0]=> array(1) { 
+        //         [0]=> string(1) "0" 
+        //     } 
+        // }
 
-        
+
         // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
         // $stmt->bindParam(':userId', $userId);
         // $stmt->bindParam(':goal_cnt', $goal_cnt);
