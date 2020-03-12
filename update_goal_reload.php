@@ -21,17 +21,19 @@
     //echo count($result);
     //2
 
-    for(var i = 0; i < count($result); i++) {
-        var userId = $result[i][0];
+    for($i = 0; $i < count($result); $i++) {
+        $userId = $result[$i][0];
         
         // 각각의 userId에 대응하는 goal_cnt 받아오기
-        // $query = "SELECT goal_cnt FROM goal WHERE userid = :userId";
-        // $stmt = $con->prepare($query);
-        // $stmt->bindParam(':userId', $userId);
-        // $stmt->execute();
-        // $result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
+        $query = "SELECT goal_cnt FROM goal WHERE userid = :userId";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->execute();
+        $result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
 
-        // var_dump(result_goal_cnt);
+        var_dump($result_goal_cnt);
+
+        
         // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
         // $stmt->bindParam(':userId', $userId);
         // $stmt->bindParam(':goal_cnt', $goal_cnt);
