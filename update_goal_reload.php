@@ -27,11 +27,22 @@
         // 각각의 userId에 대응하는 goal_cnt 받아오기
         $query = "SELECT goal_cnt FROM goal WHERE userid = ?";
         $stmt = $con->prepare($query);
-        //$stmt->bindParam(':userId', $userId);
         $stmt->execute(array($userId));
-        $result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
+        //$result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
+        //$row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT);
 
-        var_dump($result_goal_cnt);
+        //var_dump($row);
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
+            var_dump($row);
+        }
+
+        // var_dump($result_goal_cnt);
+
+        // if($i == 19) {
+        //     var_dump($result_goal_cnt[19]);
+        // }
+        
         // array(1) { 
         //     [0]=> array(1) { 
         //         [0]=> string(1) "3" 
