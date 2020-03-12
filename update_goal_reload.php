@@ -8,15 +8,36 @@
 
     $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
 
+    // userId 받아오기
     $query = "SELECT userId FROM person";
     $stmt = $con->prepare($query);
+    $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
-    var_dump($result);
+    //var_dump($result);
     //$result[0][0]
     //$result[1][0]
 
-    echo count($result);
+    //echo count($result);
+    //2
+
+    for(var i = 0; i < count($result); i++) {
+        var userId = $result[i][0];
+        
+        // 각각의 userId에 대응하는 goal_cnt 받아오기
+        // $query = "SELECT goal_cnt FROM goal WHERE userid = :userId";
+        // $stmt = $con->prepare($query);
+        // $stmt->bindParam(':userId', $userId);
+        // $stmt->execute();
+        // $result_goal_cnt = $stmt->fetchAll(PDO::FETCH_NUM);
+
+        // var_dump(result_goal_cnt);
+        // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
+        // $stmt->bindParam(':userId', $userId);
+        // $stmt->bindParam(':goal_cnt', $goal_cnt);
+        // $stmt->execute();
+    }
+
     // array(2) { 
         // [0]=> array(1) { 
         //     [0]=> string(10) "testuser01" 

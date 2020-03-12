@@ -4,6 +4,7 @@
     $username = 'akima9'; # MySQL 계정 아이디
     $password = 'thsutleo852!'; # MySQL 계정 패스워드
     $dbname = 'habbit';  # DATABASE 이름
+    //$dbname = 'testdb';  # DATABASE 이름
 
 
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
