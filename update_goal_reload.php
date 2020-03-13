@@ -17,6 +17,7 @@
 
     $today_goal_cnt = array();
     $cnt = 0;
+    $goal_cnt = 0;
 
     for($i = 0; $i < count($result); $i++) {
         
@@ -35,7 +36,7 @@
         $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt, goal_cnt = :goal_cnt WHERE userId = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
-        $stmt->bindParam(':goal_cnt', 0);
+        $stmt->bindParam(':goal_cnt', $goal_cnt);
         $stmt->execute();
     }
     
