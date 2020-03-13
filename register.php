@@ -15,6 +15,9 @@
         // 안드로이드 코드의 postParameters 변수에 적어준 이름을 가지고 값을 전달 받습니다.
         $userId=$_POST['userId'];
         $userPw=$_POST['userPw'];
+
+        // 비밀번호 암호화
+        $encrypted_passwd = password_hash($userPw, PASSWORD_DEFAULT);
         
         try{
 
@@ -30,7 +33,7 @@
                 // SQL문을 실행하여 데이터를 MySQL 서버의 person 테이블에 저장합니다. 
                 $stmt = $con->prepare('INSERT INTO person(userId, userPw) VALUES(:userId, :userPw)');
                 $stmt->bindParam(':userId', $userId);
-                $stmt->bindParam(':userPw', $userPw);
+                $stmt->bindParam(':userPw', $encrypted_passwd);
 
                 if($stmt->execute())
                 {
