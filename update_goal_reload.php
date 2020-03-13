@@ -28,7 +28,11 @@
         $stmt = $con->prepare($query);
         $stmt->execute(array($userId));
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            $today_goal_cnt[$cnt] = $row[0] - 1;
+            if($row[0] > 0) {
+                $today_goal_cnt[$cnt] = $row[0] - 1;
+            } else {
+                $today_goal_cnt[$cnt] = $row[0];
+            }
             $cnt++;
         }
 

@@ -16,18 +16,6 @@
         $userId=$_POST['userId'];
         $userPw=$_POST['userPw'];
 
-        // $user_passwd 는 로그인시 입력받은 비밀번호
-        // $db_passwd 는 DB에서 읽어온 암호화된 비밀번호
-
-        // if ( password_verify($user_passwd, $db_passwd))
-        // {           
-        //     // 로그인 성공
-        // }
-        // else
-        // {
-        // // 로그인 실패
-        // }
-
         try{
             // SQL문을 실행하여 person 테이블에서 조회합니다.
             $query = "SELECT userId, userPw FROM person WHERE userId = ?";
@@ -47,15 +35,6 @@
             } else {
                 $response["success"] = false;
             }
-            // if(isset($result[0][0])) {
-            //     $response["success"] = true;
-            //     $response["userId"] = $userId;
-                
-            //     session_start();
-            //     $_SESSION['userId'] = $userId;
-            // } else {
-            //     $response["success"] = false;
-            // }
 
             echo json_encode($response);
 
