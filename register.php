@@ -47,7 +47,7 @@
 
                 //echo json_encode($response);
                 
-                $pre_goal_cnt = $lsgoalCnt;
+                $pre_goal_cnt = (int) $lsgoalCnt;
                 $goal_cnt = 0;
 
                 $stmt = $con->prepare('INSERT INTO goal(userId, pre_goal_cnt, goal_cnt) VALUES(:userId, :pre_goal_cnt, :goal_cnt)');
