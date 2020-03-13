@@ -3,7 +3,7 @@
     error_reporting(E_ALL); 
     ini_set('display_errors',1); 
 
-    include('dbcon.php');
+    include('../dbcon.php');
 
 
     $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
