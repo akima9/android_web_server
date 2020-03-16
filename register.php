@@ -32,7 +32,7 @@
 
             if(!isset($result[0][0])) {
                 // SQL문을 실행하여 데이터를 MySQL 서버의 person 테이블에 저장합니다. 
-                $stmt = $con->prepare('INSERT INTO person(userId, userPw, ) VALUES(:userId, :userPw)');
+                $stmt = $con->prepare('INSERT INTO person(userId, userPw) VALUES(:userId, :userPw)');
                 $stmt->bindParam(':userId', $userId);
                 $stmt->bindParam(':userPw', $encrypted_passwd);
 
