@@ -22,7 +22,7 @@
             $stmt->execute(array($userId));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
-            if($goal_cnt > 0){
+            if($result[0][0] > 0){
                 $goal_cnt = $result[0][0] - 1;
 
                 $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
