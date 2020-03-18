@@ -44,10 +44,13 @@
         $stmt->bindParam(':goal_cnt', $goal_cnt);
         $stmt->execute();
 
-        $stmt = $con->prepare('INSERT INTO history(userId, todayCnt, goal, crdate) VALUES(:userId, :todayCnt, :goal, now())');
+        $crdate = date("Y-m-d H:i:s");
+
+        $stmt = $con->prepare('INSERT INTO history(userId, todayCnt, goal, crdate) VALUES(:userId, :todayCnt, :goal, :crdate)');
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':todayCnt', $todayCnt);
         $stmt->bindParam(':goal', $lsGoal);
+        $stmt->bindParam(':crdate', $crdate);
         $stmt->execute();
     }
     
