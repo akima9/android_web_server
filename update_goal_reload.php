@@ -24,7 +24,8 @@
         $userId = $result[$i][0];
         
         // 각각의 userId에 대응하는 goal_cnt 받아오기
-        $query = "SELECT goal_cnt FROM goal WHERE userid = ?";
+        // $query = "SELECT goal_cnt FROM goal WHERE userid = ?";
+        $query = "SELECT todayCnt FROM person WHERE userid = ?";
         $stmt = $con->prepare($query);
         $stmt->execute(array($userId));
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
@@ -36,8 +37,8 @@
             $cnt++;
         }
 
-        // pre_goal_cnt 업데이트
-        $stmt = $con->prepare('UPDATE goal SET pre_goal_cnt = :pre_goal_cnt, goal_cnt = :goal_cnt WHERE userId = :userId');
+        // goal 업데이트
+        $stmt = $con->prepare('UPDATE person SET goal = :pre_goal_cnt, todayCnt = :goal_cnt WHERE userId = :userId');
         $stmt->bindParam(':userId', $userId);
         $stmt->bindParam(':pre_goal_cnt', $today_goal_cnt[$i]);
         $stmt->bindParam(':goal_cnt', $goal_cnt);

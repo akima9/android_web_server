@@ -17,17 +17,19 @@
 
         try{
             // SQL문을 실행하여 person 테이블에서 조회합니다.
-            $query = "SELECT goal_cnt FROM goal WHERE userId = ?";
+            // $query = "SELECT goal_cnt FROM goal WHERE userId = ?";
+            $query = "SELECT todayCnt FROM person WHERE userId = ?";
             $stmt = $con->prepare($query);
             $stmt->execute(array($userId));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
             if($result[0][0] > 0){
-                $goal_cnt = $result[0][0] - 1;
+                $todayCnt = $result[0][0] - 1;
 
-                $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
+                // $stmt = $con->prepare('UPDATE goal SET goal_cnt = :goal_cnt WHERE userId = :userId');
+                $stmt = $con->prepare('UPDATE person SET todayCnt = :todayCnt WHERE userId = :userId');
                 $stmt->bindParam(':userId', $userId);
-                $stmt->bindParam(':goal_cnt', $goal_cnt);
+                $stmt->bindParam(':todayCnt', $todayCnt);
                 $stmt->execute();
 
                 if($stmt->execute()) {

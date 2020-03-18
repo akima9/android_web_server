@@ -17,7 +17,8 @@
 
         try{
             // SQL문을 실행하여 person 테이블에서 조회합니다.
-            $query = "SELECT pre_goal_cnt FROM goal WHERE userId = ?";
+            // $query = "SELECT pre_goal_cnt FROM goal WHERE userId = ?";
+            $query = "SELECT goal FROM person WHERE userId = ?";
             $stmt = $con->prepare($query);
             $stmt->execute(array($userId));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
