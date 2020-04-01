@@ -24,10 +24,10 @@
         var_dump($dayOfMonth);
 
         $crdate = $year."-".$month."-".$dayOfMonth;
+        $crdate = '%' . addcslashes($crdate, '\_%') . '%';
 
         try{
-            $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate LIKE concat('%',?,'%')";
-            // name LIKE concat('%', ?, '%')
+            $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate LIKE ?";
             $stmt = $con->prepare($query);
             $stmt->execute(array($userId,$crdate));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
