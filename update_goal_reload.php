@@ -15,9 +15,12 @@
     $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
 
-    $today_goal_cnt = array();
-    $cnt = 0;
-    $goal_cnt = 0;
+    $today_goal_cnt = array(); // 업데이트 될 goal을 담을 배열
+    $cnt = 0; // 업데이트 될 goal을 담을 배열의 인덱스
+    $todayCnt = 0; // 업데이트 될 todayCnt
+
+    $history_goal_arr = array(); // history table의 goal을 담을 배열
+    $history_todayCnt_arr = array(); // history table의 todayCnt을 담을 배열
 
     for($i = 0; $i < count($result); $i++) {
         
@@ -30,32 +33,48 @@
         $stmt = $con->prepare($query);
         $stmt->execute(array($userId));
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            var_dump($row);
-            // if($row[0] > 0) {
-            //     $today_goal_cnt[$cnt] = $row[0] - 1;
-            //     $total_goal_cnt[$cnt] = $row[0];
-            // } else {
-            //     $today_goal_cnt[$cnt] = $row[0];
-            //     $total_goal_cnt[$cnt] = $row[0];
+            
+            // var_dump($row);
+            
+            // array(2) { 
+            //     [0]=> string(1) "0" // todayCnt 
+            //     [1]=> string(1) "7" // goal
+            // } 
+            // array(2) { 
+            //     [0]=> string(1) "0" // todayCnt
+            //     [1]=> string(1) "9" // goal
             // }
-            // $cnt++;
+            
+            // todayCnt가 0보다 크면 -1 그렇지 않으면 그대로
+            if($row[0] > 0) {
+                $today_goal_cnt[$cnt] = $row[0] - 1;
+                $total_goal_cnt[$cnt] = $row[0];
+            } else {
+                $today_goal_cnt[$cnt] = $row[0];
+                $total_goal_cnt[$cnt] = $row[0];
+            }
+
+            $history_todayCnt_arr[$cnt] = $row[0];
+            $history_goal_arr[$cnt] = $row[1];
+
+            $cnt++;
         }
 
         // goal 업데이트
-        // $stmt = $con->prepare('UPDATE person SET goal = :goal, todayCnt = :todayCnt WHERE userId = :userId');
-        // $stmt->bindParam(':userId', $userId);
-        // $stmt->bindParam(':goal', $today_goal_cnt[$i]);
-        // $stmt->bindParam(':todayCnt', $goal_cnt);
-        // $stmt->execute();
+        $stmt = $con->prepare('UPDATE person SET goal = :goal, todayCnt = :todayCnt WHERE userId = :userId');
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':goal', $today_goal_cnt[$i]);
+        $stmt->bindParam(':todayCnt', $todayCnt);
+        $stmt->execute();
 
-        // $crdate = date("Y-m-d H:i:s");
+        $crdate = date("Y-m-d H:i:s");
 
-        // $stmt = $con->prepare('INSERT INTO history(userId, todayCnt, goal, crdate) VALUES(:userId, :todayCnt, :goal, :crdate)');
-        // $stmt->bindParam(':userId', $userId);
-        // $stmt->bindParam(':todayCnt', $goal_cnt);
-        // $stmt->bindParam(':goal', $total_goal_cnt[$i]);
-        // $stmt->bindParam(':crdate', $crdate);
-        // $stmt->execute();
+        $stmt = $con->prepare('INSERT INTO history(userId, todayCnt, goal, crdate) VALUES(:userId, :todayCnt, :goal, :crdate)');
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':todayCnt', $history_todayCnt_arr[$i]);
+        $stmt->bindParam(':goal', $history_goal_arr[$i]);
+        $stmt->bindParam(':crdate', $crdate);
+        $stmt->execute();
     }
     
 
