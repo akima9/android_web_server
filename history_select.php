@@ -23,7 +23,7 @@
         var_dump($month);
         var_dump($dayOfMonth);
 
-        $crdate = $year."-".$month."-".$dayOfMonth;
+        $crdate = "%".$year."-".$month."-".$dayOfMonth."%";
 
         try{
             $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate like ?";
