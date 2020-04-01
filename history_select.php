@@ -23,12 +23,12 @@
         var_dump($month);
         var_dump($dayOfMonth);
 
-        $crdate = "%".$year."-".$month."-".$dayOfMonth."%";
+        $crdate = $year."-".$month."-".$dayOfMonth;
 
         try{
             $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate like ?";
             $stmt = $con->prepare($query);
-            $stmt->execute(array($userId,$crdate));
+            $stmt->execute(array($userId,"%$crdate%"));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
             var_dump($result);
