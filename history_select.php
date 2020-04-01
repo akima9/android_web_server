@@ -14,7 +14,14 @@
 
         // 안드로이드 코드의 postParameters 변수에 적어준 이름을 가지고 값을 전달 받습니다.
         $userId=$_POST['userId'];
+        $year=$_POST['year'];
+        $month=$_POST['month'];
+        $dayOfMonth=$_POST['dayOfMonth'];
+
         var_dump($userId);
+        var_dump($year);
+        var_dump($month);
+        var_dump($dayOfMonth);
 
         try{
             $query = "SELECT goal, todayCnt FROM history WHERE userId = ?";
