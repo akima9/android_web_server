@@ -67,6 +67,7 @@
         $stmt->bindParam(':todayCnt', $todayCnt);
         $stmt->execute();
 
+        // $crdate = date("Y-m-d H:i:s");
         $crdate = date("Y-m-d H:i:s");
 
         $stmt = $con->prepare('INSERT INTO history(userId, todayCnt, goal, crdate) VALUES(:userId, :todayCnt, :goal, :crdate)');
