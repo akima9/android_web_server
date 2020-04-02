@@ -29,8 +29,8 @@
             $query = "SELECT goal, todayCnt FROM history WHERE userId = :userId, crdate LIKE :crdate";
             $stmt = $con->prepare($query);
             // $stmt = bindParam(1, $userId, PDO::PARAM_STR);
-            $stmt = bindValue(":userId", $userId, PDO::PARAM_STR);
-            $stmt = bindValue(":crdate", "$crdate%", PDO::PARAM_STR);
+            $stmt -> bindValue(":userId", $userId, PDO::PARAM_STR);
+            $stmt -> bindValue(":crdate", "$crdate%", PDO::PARAM_STR);
             // $stmt->execute(array($userId,$crdate));
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
