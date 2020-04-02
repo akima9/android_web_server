@@ -26,9 +26,10 @@
         $crdate = $year."-".$month."-".$dayOfMonth;
 
         try{
-            $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate LIKE :crdate";
+            $query = "SELECT goal, todayCnt FROM history WHERE userId = :userId, crdate LIKE :crdate";
             $stmt = $con->prepare($query);
-            $stmt = bindParam(1, $userId, PDO::PARAM_STR);
+            // $stmt = bindParam(1, $userId, PDO::PARAM_STR);
+            $stmt = bindValue(":userId", $userId);
             $stmt = bindValue(":crdate", "$crdate%");
             // $stmt->execute(array($userId,$crdate));
             $stmt->execute();
