@@ -24,7 +24,6 @@
         var_dump($dayOfMonth);
 
         $crdate = $year."-".$month."-".$dayOfMonth;
-        $crdate = '%' . addcslashes($crdate, '\_%') . '%';
 
         try{
             $query = "SELECT goal, todayCnt FROM history WHERE userId = ?, crdate LIKE ?";
