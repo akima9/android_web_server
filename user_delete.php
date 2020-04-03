@@ -26,7 +26,7 @@
 
             // SQL문을 실행하여 person 테이블에서 조회합니다.
             // $query = "SELECT userId FROM person WHERE userId = ? and userYn = ?";
-            $query = "UPDATE pesron SET userYn = :userYn WHERE userId = :userId";
+            $query = "UPDATE person SET userYn = :userYn WHERE userId = :userId";
             $stmt = $con->prepare($query);
             $stmt->bindParam(':userYn', $userYn);
             $stmt->bindParam(':userId', $userId);
