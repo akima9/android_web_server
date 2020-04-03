@@ -19,22 +19,27 @@
 
         try{
             // SQL문을 실행하여 person 테이블에서 조회합니다.
-            $query = "SELECT userId, userPw FROM person WHERE userId = ? and userYn = ?";
+            // $query = "SELECT userId, userPw FROM person WHERE userId = ? and userYn = ?";
+            $query = "SELECT userId, userPw, userYn FROM person WHERE userId = ?";
             $stmt = $con->prepare($query);
-            $stmt->execute(array($userId,$userYn));
+            $stmt->execute(array($userId));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
             //var_dump($result);
             $response = array();
 
-            if( password_verify($userPw, $result[0][1]) ) {
-                $response["success"] = true;
-                $response["userId"] = $userId;
-                
-                session_start();
-                $_SESSION['userId'] = $userId;
+            if($result[0][2] == "N"){
+                $response["status"] = "delete";
             } else {
-                $response["success"] = false;
+                if( password_verify($userPw, $result[0][1]) ) {
+                    $response["success"] = true;
+                    $response["userId"] = $userId;
+                    
+                    session_start();
+                    $_SESSION['userId'] = $userId;
+                } else {
+                    $response["success"] = false;
+                }
             }
 
             echo json_encode($response);
