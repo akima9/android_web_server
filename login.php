@@ -15,12 +15,13 @@
         // 안드로이드 코드의 postParameters 변수에 적어준 이름을 가지고 값을 전달 받습니다.
         $userId=$_POST['userId'];
         $userPw=$_POST['userPw'];
+        $userYn = "Y";
 
         try{
             // SQL문을 실행하여 person 테이블에서 조회합니다.
-            $query = "SELECT userId, userPw FROM person WHERE userId = ?";
+            $query = "SELECT userId, userPw FROM person WHERE userId = ? and userYn = ?";
             $stmt = $con->prepare($query);
-            $stmt->execute(array($userId));
+            $stmt->execute(array($userId,$userYn));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
             //var_dump($result);

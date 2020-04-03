@@ -17,6 +17,7 @@
         $userPw=$_POST['userPw'];
         $lsGoal=$_POST['goalCnt'];
         $todayCnt = 0;
+        $userYn = "Y";
 
         // 비밀번호 암호화
         $encrypted_passwd = password_hash($userPw, PASSWORD_DEFAULT);
@@ -24,18 +25,19 @@
         try{
 
             // SQL문을 실행하여 person 테이블에서 조회합니다.
-            $query = "SELECT userId FROM person WHERE userId = ?";
+            $query = "SELECT userId FROM person WHERE userId = ? and userYn = ?";
             $stmt = $con->prepare($query);
-            $stmt->execute(array($userId));
+            $stmt->execute(array($userId,$userYn));
             $result = $stmt->fetchAll(PDO::FETCH_NUM);
 
             $response = array();
 
             if(!isset($result[0][0])) {
                 // SQL문을 실행하여 데이터를 MySQL 서버의 person 테이블에 저장합니다. 
-                $stmt = $con->prepare('INSERT INTO person(userId, userPw, todayCnt, goal) VALUES(:userId, :userPw, :todayCnt, :goal)');
+                $stmt = $con->prepare('INSERT INTO person(userId, userPw, userYn, todayCnt, goal) VALUES(:userId, :userPw, :userYn, :todayCnt, :goal)');
                 $stmt->bindParam(':userId', $userId);
                 $stmt->bindParam(':userPw', $encrypted_passwd);
+                $stmt->bindParam(':userYn', $userYn);
                 $stmt->bindParam(':todayCnt', $todayCnt);
                 $stmt->bindParam(':goal', $lsGoal);
 
