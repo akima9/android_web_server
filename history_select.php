@@ -26,7 +26,7 @@
         $crdate = $year."-".$month."-".$dayOfMonth;
 
         try{
-            $query = "SELECT goal, todayCnt FROM history WHERE userId = :userId, DATE(crdate) = :crdate";
+            $query = "SELECT goal, todayCnt FROM history WHERE userId = :userId and DATE(crdate) = :crdate";
             // DATE(post_date)='2012-01-22'
             $stmt = $con->prepare($query);
             // $stmt = bindParam(1, $userId, PDO::PARAM_STR);
