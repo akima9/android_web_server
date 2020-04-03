@@ -29,8 +29,9 @@
             $response = array();
 
             if($result[0][2] == "N"){
-                $response["status"] = "delete";
+                $response["status"] = "N";
             } else {
+                $response["status"] = "Y";
                 if( password_verify($userPw, $result[0][1]) ) {
                     $response["success"] = true;
                     $response["userId"] = $userId;
