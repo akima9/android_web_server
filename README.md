@@ -2,11 +2,13 @@
 
 **하루에 하나씩 줄여가는 금연 보조 안드로이드 애플리케이션입니다.**
 
+**[ 개발환경 ]**
+
 **· 개발인원 :** 1명
 
-**· 개발환경 :** Android Studio, AWS EC2(Ubuntu)
+**· IDE :** Android Studio
 
-**· 프로토콜 :** HTTP, TCP/IP
+**· 인프라 :** AWS EC2(Ubuntu)
 
 **· 개발언어 :** JAVA, PHP
 
