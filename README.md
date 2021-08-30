@@ -6,11 +6,9 @@
 
 **· 개발인원 :** 1명
 
-**· IDE :** Android Studio
+**· 인프라 :** AWS EC2(Ubuntu), AWS RDS
 
-**· 인프라 :** AWS EC2(Ubuntu)
-
-**· 개발언어 :** JAVA, PHP
+**· 개발언어 :** PHP
 
 **· 웹서버 :** Apache
 
